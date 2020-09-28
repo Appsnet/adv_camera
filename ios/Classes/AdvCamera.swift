@@ -289,22 +289,7 @@ public class AdvCameraView : NSObject, FlutterPlatformView {
     func outputAccelertionData(_ acceleration: CMAcceleration) {
         var orientationNew: UIInterfaceOrientation
 
-        if acceleration.x >= 0.75 {
-            orientationNew = .landscapeLeft
-        } else if acceleration.x <= -0.75 {
-            orientationNew = .landscapeRight
-        } else if acceleration.y <= -0.75 {
-            orientationNew = .portrait
-        } else if acceleration.y >= 0.75 {
-            orientationNew = .portraitUpsideDown
-        } else {
-            // Consider same as last time
-            return
-        }
-
-        if orientationNew == orientationLast {
-            return
-        }
+        return
 
         orientationLast = orientationNew
     }
@@ -312,15 +297,6 @@ public class AdvCameraView : NSObject, FlutterPlatformView {
     @objc func orientationChanged() {
         let orientation: UIInterfaceOrientation = UIApplication.shared.keyWindow?.rootViewController?.preferredInterfaceOrientationForPresentation ?? UIInterfaceOrientation.portrait
 
-        if orientation == UIInterfaceOrientation.landscapeLeft {
-            if (self.previewView.previousOrientation == UIInterfaceOrientation.landscapeRight) {
-                self.previewView.setNeedsLayout()
-            }
-        } else if orientation == UIInterfaceOrientation.landscapeRight {
-            if (self.previewView.previousOrientation == UIInterfaceOrientation.landscapeLeft) {
-                self.previewView.setNeedsLayout()
-            }
-        }
     }
 
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -396,16 +372,9 @@ public class AdvCameraView : NSObject, FlutterPlatformView {
         videoPreviewLayer.videoGravity = .resizeAspectFill
         let orientation: UIInterfaceOrientation = UIApplication.shared.keyWindow?.rootViewController?.preferredInterfaceOrientationForPresentation ?? UIInterfaceOrientation.portrait
 
-        if orientation == UIInterfaceOrientation.landscapeLeft {
-            videoPreviewLayer.connection?.videoOrientation = .landscapeLeft
-        } else if orientation == UIInterfaceOrientation.landscapeRight {
-            videoPreviewLayer.connection?.videoOrientation = .landscapeRight
-        } else if orientation == UIInterfaceOrientation.portrait {
+        if orientation == UIInterfaceOrientation.portrait {
             videoPreviewLayer.connection?.videoOrientation = .portrait
-        } else if orientation == UIInterfaceOrientation.portraitUpsideDown {
-            videoPreviewLayer.connection?.videoOrientation = .portraitUpsideDown
         }
-
         previewView.previousOrientation = orientation
         previewView.videoPreviewLayer = videoPreviewLayer
         previewView.layer.addSublayer(videoPreviewLayer)
@@ -437,27 +406,27 @@ public class AdvCameraView : NSObject, FlutterPlatformView {
     }
 
     func rotateImage(image: UIImage) -> UIImage? {
-        if self.camera?.position == .front {
-            if self.orientationLast == UIInterfaceOrientation.landscapeRight {
-                return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .downMirrored)
-            } else if self.orientationLast == UIInterfaceOrientation.landscapeLeft {
-                return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .upMirrored)
-            } else if self.orientationLast == UIInterfaceOrientation.portrait {
-                return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .leftMirrored)
-            } else if self.orientationLast == UIInterfaceOrientation.portraitUpsideDown {
-                return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .rightMirrored)
-            }
-        } else if self.camera?.position == .back {
-            if self.orientationLast == UIInterfaceOrientation.landscapeRight {
-                return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .up)
-            } else if self.orientationLast == UIInterfaceOrientation.landscapeLeft {
-                return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .down)
-            } else if self.orientationLast == UIInterfaceOrientation.portrait {
-                return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .right)
-            } else if self.orientationLast == UIInterfaceOrientation.portraitUpsideDown {
-                return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .left)
-            }
-        }
+//         if self.camera?.position == .front {
+//             if self.orientationLast == UIInterfaceOrientation.landscapeRight {
+//                 return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .downMirrored)
+//             } else if self.orientationLast == UIInterfaceOrientation.landscapeLeft {
+//                 return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .upMirrored)
+//             } else if self.orientationLast == UIInterfaceOrientation.portrait {
+//                 return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .leftMirrored)
+//             } else if self.orientationLast == UIInterfaceOrientation.portraitUpsideDown {
+//                 return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .rightMirrored)
+//             }
+//         } else if self.camera?.position == .back {
+//             if self.orientationLast == UIInterfaceOrientation.landscapeRight {
+//                 return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .up)
+//             } else if self.orientationLast == UIInterfaceOrientation.landscapeLeft {
+//                 return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .down)
+//             } else if self.orientationLast == UIInterfaceOrientation.portrait {
+//                 return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .right)
+//             } else if self.orientationLast == UIInterfaceOrientation.portraitUpsideDown {
+//                 return UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .left)
+//             }
+//         }
 
         return image
     }
@@ -557,14 +526,8 @@ public class BoundsObservableView: UIView {
             boundsDelegate?.boundsDidChange(self, from: previousBounds)
             previousBounds = bounds
             if let connection = videoPreviewLayer?.connection {
-                if orientation == UIInterfaceOrientation.landscapeLeft {
-                    connection.videoOrientation = .landscapeLeft
-                } else if orientation == UIInterfaceOrientation.landscapeRight {
-                    connection.videoOrientation = .landscapeRight
-                } else if orientation == UIInterfaceOrientation.portrait {
+                if orientation == UIInterfaceOrientation.portrait {
                     connection.videoOrientation = .portrait
-                } else if orientation == UIInterfaceOrientation.portraitUpsideDown {
-                    connection.videoOrientation = .portraitUpsideDown
                 }
             }
 

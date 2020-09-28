@@ -198,7 +198,7 @@ public class AdvCamera implements MethodChannel.MethodCallHandler,
             }
         };
 
-        identifyOrientationEvents();
+        // identifyOrientationEvents();
     }
 
     private void captureImage() {

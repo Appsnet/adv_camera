@@ -550,21 +550,21 @@ public class AdvCamera implements MethodChannel.MethodCallHandler,
         }
 
         int degrees = 0;
-        switch (rotation) {
+//         switch (rotation) {
 
-            case Surface.ROTATION_0:
-                degrees = 0;
-                break;
-            case Surface.ROTATION_90:
-                degrees = 90;
-                break;
-            case Surface.ROTATION_180:
-                degrees = 180;
-                break;
-            case Surface.ROTATION_270:
-                degrees = 270;
-                break;
-        }
+//             case Surface.ROTATION_0:
+//                 degrees = 0;
+//                 break;
+//             case Surface.ROTATION_90:
+//                 degrees = 90;
+//                 break;
+//             case Surface.ROTATION_180:
+//                 degrees = 180;
+//                 break;
+//             case Surface.ROTATION_270:
+//                 degrees = 270;
+//                 break;
+//         }
 
         int result;
 
@@ -794,23 +794,24 @@ public class AdvCamera implements MethodChannel.MethodCallHandler,
     }
 
     private int getPhotoRotation() {
-        int rotation;
-        int orientation = mPhotoAngle;
+//         int rotation;
+//         int orientation = mPhotoAngle;
 
-        Camera.CameraInfo info = new Camera.CameraInfo();
-        if (cameraFacing == 0) {
-            Camera.getCameraInfo(0, info);
-        } else {
-            Camera.getCameraInfo(1, info);
-        }
+//         Camera.CameraInfo info = new Camera.CameraInfo();
+//         if (cameraFacing == 0) {
+//             Camera.getCameraInfo(0, info);
+//         } else {
+//             Camera.getCameraInfo(1, info);
+//         }
 
-        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-            rotation = (info.orientation - orientation + 360) % 360;
-        } else {
-            rotation = (info.orientation + orientation) % 360;
-        }
+//         if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+//             rotation = (info.orientation - orientation + 360) % 360;
+//         } else {
+//             rotation = (info.orientation + orientation) % 360;
+//         }
 
-        return rotation;
+//         return rotation;
+        return 0;
     }
 
     private void identifyOrientationEvents() {

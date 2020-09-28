@@ -193,7 +193,7 @@ public class AdvCamera implements MethodChannel.MethodCallHandler,
                 camera.stopPreview();
 
                 cancelSavePicTaskIfNeed();
-                savePicTask = new SavePicTask(data, getPhotoRotation());
+                savePicTask = new SavePicTask(data, 90);
                 savePicTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
             }
         };

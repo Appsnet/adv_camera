@@ -287,15 +287,11 @@ public class AdvCameraView : NSObject, FlutterPlatformView {
     }
 
     func outputAccelertionData(_ acceleration: CMAcceleration) {
-        var orientationNew: UIInterfaceOrientation
-
         return
-
-        orientationLast = orientationNew
     }
 
     @objc func orientationChanged() {
-        let orientation: UIInterfaceOrientation = UIApplication.shared.keyWindow?.rootViewController?.preferredInterfaceOrientationForPresentation ?? UIInterfaceOrientation.portrait
+
 
     }
 

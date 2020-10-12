@@ -243,10 +243,10 @@ public class AdvCamera implements MethodChannel.MethodCallHandler,
 
                 this.previewRatio = previewRatio;
 
-                // param.setPreviewSize(selectedSize.width, selectedSize.height);
+                param.setPreviewSize(selectedSize.width, selectedSize.height);
 
                 camera.stopPreview();
-                // camera.setParameters(param);
+                camera.setParameters(param);
                 try {
                     camera.setPreviewDisplay(surfaceHolder);
                 } catch (IOException e) {

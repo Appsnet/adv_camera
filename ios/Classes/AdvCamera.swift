@@ -382,7 +382,7 @@ public class AdvCameraView : NSObject, FlutterPlatformView {
             // somehow the first time running is faster than the getView from FlutterNativeView function
             let seconds = 0.5
             DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                self.videoPreviewLayer.frame = self.previewView.bounds
+                // self.videoPreviewLayer.frame = self.previewView.bounds
 
                 if (self.camera!.hasTorch) {
                     do {

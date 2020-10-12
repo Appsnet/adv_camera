@@ -187,9 +187,9 @@ public class AdvCameraView : NSObject, FlutterPlatformView {
                 result(nil)
             } else if call.method == "turnOn" {
                 self.captureSession.startRunning()
-                result (nil)
+                result(nil)
             } else if call.method == "refreshCamera" {
-                result (nil)
+                result(nil)
             } else if call.method == "switchCamera" {
                 let videoDevices = AVCaptureDevice.devices(for: AVMediaType.video)
                 for device in videoDevices {

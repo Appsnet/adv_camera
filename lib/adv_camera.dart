@@ -246,6 +246,8 @@ class _AdvCameraState extends State<AdvCamera> {
           height = constraints.maxHeight;
         }
 
+        return Container(child: camera);
+
         return ClipRect(
           child: OverflowBox(
             maxWidth: width,

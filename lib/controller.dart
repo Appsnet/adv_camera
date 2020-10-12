@@ -14,7 +14,8 @@ class AdvCameraController {
     _AdvCameraState advCameraState,
   ) async {
     assert(id != null);
-    final MethodChannel channel = MethodChannel('plugins.flutter.io/adv_camera/$id');
+    final MethodChannel channel =
+        MethodChannel('plugins.flutter.io/adv_camera/$id');
     // TODO(amirh): remove this on when the invokeMethod update makes it to stable Flutter.
     // https://github.com/flutter/flutter/issues/26431
     // ignore: strong_mode_implicit_dynamic_method
@@ -98,7 +99,8 @@ class AdvCameraController {
         break;
     }
 
-    bool success = await channel.invokeMethod('setPreviewRatio', <String, dynamic>{
+    bool success =
+        await channel.invokeMethod('setPreviewRatio', <String, dynamic>{
       'previewRatio': previewRatio,
     });
 
@@ -131,6 +133,17 @@ class AdvCameraController {
     await channel.invokeMethod('turnOff', null);
   }
 
+  Future<void> turnOnCamera() async {
+    // TODO(amirh): remove this on when the invokeMethod update makes it to stable Flutter.
+    // https://github.com/flutter/flutter/issues/26431
+    // ignore: strong_mode_implicit_dynamic_method
+    await channel.invokeMethod('turnOn', null);
+  }
+
+  Future<void> refreshCamera() async {
+    await channel.invokeMethod('refreshCamera', null);
+  }
+
   Future<List<String>> getPictureSizes() async {
     // TODO(amirh): remove this on when the invokeMethod update makes it to stable Flutter.
     // https://github.com/flutter/flutter/issues/26431
@@ -146,8 +159,8 @@ class AdvCameraController {
     // TODO(amirh): remove this on when the invokeMethod update makes it to stable Flutter.
     // https://github.com/flutter/flutter/issues/26431
     // ignore: strong_mode_implicit_dynamic_method
-    var x = await channel
-        .invokeMethod('setPictureSize', {"pictureWidth": width, "pictureHeight": height});
+    var x = await channel.invokeMethod(
+        'setPictureSize', {"pictureWidth": width, "pictureHeight": height});
 
     print("setPictureSize => $x");
   }
@@ -183,14 +196,15 @@ class AdvCameraController {
         flashTypeString = "torch";
         break;
     }
-    var x = await channel.invokeMethod('setFlashType', {"flashType": flashTypeString});
+    var x = await channel
+        .invokeMethod('setFlashType', {"flashType": flashTypeString});
 
     print("setFlashType => $x");
   }
 
   Future<List<FlashType>> getFlashType() async {
     final types = await channel.invokeMethod('getFlashType');
-print("getFlashType => $types");
+    print("getFlashType => $types");
     List<FlashType> finalTypes = [];
 
     if (types == null) return finalTypes;
